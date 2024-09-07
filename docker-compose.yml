@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SWOP_API_KEY=${SWOP_API_KEY}
+    depends_on:
+      - frontend
+    networks:
+      - custom-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    networks:
+      - custom-network
+
+networks:
+  custom-network:
+    driver: bridge
